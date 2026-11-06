@@ -45,40 +45,35 @@ more_about:{kk:'Толығырақ',ru:'Подробнее о нас',en:'More a
 profile:{kk:'Толық профиль',ru:'Полный профиль',en:'Full profile'},
 worked:{kk:'Біз жұмыс істеген жұлдыздар',ru:'Звёзды, с которыми мы работали',en:'Stars we have worked with'},
 all:{kk:'Барлығы',ru:'Все',en:'All'},
+all_team:{kk:'Бүкіл команда',ru:'Вся команда',en:'All team'},
 n_proj:{kk:'Жобалар: {n}',ru:'Проектов: {n}',en:'{n} projects'},
 n_ppl:{kk:'Табылды: {n}',ru:'Найдено: {n}',en:'{n} people'},
 search:{kk:'Атымен іздеу',ru:'Поиск по имени',en:'Search by name'},
 empty:{kk:'Ештеңе табылмады',ru:'Ничего не найдено',en:'Nothing found'},
-skills:{kk:'Дағдылар',ru:'Навыки',en:'Skills'},
 honours:{kk:'Марапаттар мен жетістіктер',ru:'Награды и достижения',en:'Honours and affiliations'},
 year:{kk:'Жыл',ru:'Год',en:'Year'},
 country:{kk:'Ел',ru:'Страна',en:'Country'},
 director:{kk:'Режиссер',ru:'Режиссёр',en:'Director'},
 stars:{kk:'Рөлдерде',ru:'В ролях',en:'Starring'},
 cat_founder:{kk:'Негізін қалаушы',ru:'Основатель',en:'Founder'},
-cat_coord:{kk:'Трюк қоюшылар',ru:'Постановщики трюков',en:'Stunt coordinators'},
-cat_horse:{kk:'Хорс-мастерлер',ru:'Хорс-мастеры',en:'Horse masters'},
-cat_rig:{kk:'Риггерлер',ru:'Риггеры',en:'Riggers'},
-cat_perf:{kk:'Каскадерлер',ru:'Каскадёры',en:'Stunt performers'},
 r_perf:{kk:'Каскадер',ru:'Каскадёр',en:'Stunt performer'},
 r_coord:{kk:'Трюк қоюшы',ru:'Постановщик трюков',en:'Stunt coordinator'},
 r_horse:{kk:'Хорс-мастер',ru:'Хорс-мастер',en:'Horse master'},
 r_rig:{kk:'Риггер',ru:'Риггер',en:'Rigger'},
 r_actor:{kk:'Актер',ru:'Актёр',en:'Actor'},
 r_actress:{kk:'Актриса',ru:'Актриса',en:'Actress'},
-r_cam:{kk:'Экшн-оператор',ru:'Экшен-оператор',en:'Action cameraman'},
 gal_t:{kk:'Фотогалерея',ru:'Фотогалерея',en:'Gallery'},
 gal_p:{kk:'Түсірілім алаңынан және жаттығулардан кадрлар',ru:'Кадры со съёмочных площадок и тренировок',en:'Moments from film sets and training'},
-c_agent:{kk:'Nomad Stunts агенті',ru:'Агент Nomad Stunts',en:'Nomad Stunts agent'},
-agent:{kk:'Мурат Елькенов',ru:'Мурат Елькенов',en:'Murat Yelkenov'},
+c_phone:{kk:'Nomad Stunts байланыстары',ru:'Контакты Nomad Stunts',en:'Nomad Stunts contacts'},
+c_map:{kk:'2ГИС картасында ашу',ru:'Открыть в 2ГИС',en:'Open in 2GIS'},
 c_write:{kk:'Бізге жазыңыз',ru:'Пишите нам',en:'Write to us'},
 c_base:{kk:'Жаттығу базасы',ru:'Тренировочная база',en:'Training base'},
 c_base_p:{kk:'Алматы облысы, Есік қаласының маңы. 40 үйретілген трюк жылқысы.',ru:'Алматинская область, недалеко от города Есик. 40 обученных трюковых лошадей.',en:'Near the town of Issyk, Almaty Region, Kazakhstan. Home to our 40 trained stunt horses.'},
 c_soc:{kk:'Әлеуметтік желілер',ru:'Мы в соцсетях',en:'Follow us'},
-c_lead:{kk:'Ынтымақтастық, түсірілім және кастинг сұрақтары бойынша агентімізге хабарласыңыз — біз әлемнің кез келген нүктесіндегі жобаларға шығамыз.',ru:'По вопросам сотрудничества, съёмок и кастинга обращайтесь к нашему агенту — мы работаем на проектах по всему миру.',en:'For collaborations, productions and casting, contact our agent — we work on projects all over the world.'},
+c_lead:{kk:'Ынтымақтастық, түсірілім және кастинг сұрақтары бойынша бізге хабарласыңыз — біз әлемнің кез келген нүктесіндегі жобаларға шығамыз.',ru:'По вопросам сотрудничества, съёмок и кастинга свяжитесь с нами — мы работаем на проектах по всему миру.',en:'For collaborations, productions and casting, contact us — we work on projects all over the world.'},
 ft_menu:{kk:'Мәзір',ru:'Меню',en:'Menu'},
 ft_contact:{kk:'Бізбен байланыс',ru:'Свяжитесь с нами',en:'Contact us'},
-ft_p:{kk:'Nomad Stunts-пен ынтымақтастық бойынша барлық сұрақтарға агентіміз жауап береді:',ru:'По всем вопросам сотрудничества с Nomad Stunts обращайтесь к нашему агенту:',en:'For all inquiries regarding Nomad Stunts please contact our agent:'},
+ft_p:{kk:'Nomad Stunts-пен ынтымақтастық бойынша барлық сұрақтар:',ru:'По всем вопросам сотрудничества с Nomad Stunts звоните или пишите:',en:'For all inquiries regarding Nomad Stunts please call or write:'},
 send:{kk:'Хат жазу',ru:'Написать письмо',en:'Send email'},
 rights:{kk:'Барлық құқықтар қорғалған',ru:'Все права защищены',en:'All rights reserved'},
 close:{kk:'Жабу',ru:'Закрыть',en:'Close'}
@@ -203,8 +198,8 @@ function chrome(){
   const ft = document.createElement('footer'); ft.id='footer';
   ft.innerHTML = `<div class="wrap ft">
    <div><a href="index.html" class="ft-logo"><img src="assets/logo.svg" alt="Nomad Stunts" width="167" height="76"></a><h4>${t('ft_menu')}</h4><ul><li><a href="index.html">${t('home')}</a></li>${NAV.map(([k,u])=>`<li><a href="${u}">${t('nav_'+k)}</a></li>`).join('')}</ul></div>
-   <div><h4>${t('ft_contact')}</h4><p>${t('ft_p')}</p><p class="agent">${t('agent')}</p>
-    <div class="ph"><a href="tel:+77779900068">+7 777 99 000 68</a><a href="tel:+77770345034">+7 777 03 450 34</a></div>
+   <div><h4>${t('ft_contact')}</h4><p>${t('ft_p')}</p>
+    <div class="ph"><a href="tel:+77017152644">+7 701 715 26 44</a><a href="tel:+77770345034">+7 777 03 450 34</a></div>
     <p style="margin-top:8px">Email: <a href="mailto:nomadstunts@gmail.com">nomadstunts@gmail.com</a></p></div>
    <div class="ft-r"><div class="soc">${soc()}</div><a class="btn" href="mailto:nomadstunts@gmail.com">${t('send')}</a></div>
   </div><p class="copy">© 2000–${new Date().getFullYear()} Nomad Stunts · ${t('tagline')}. ${t('rights')}.</p>`;
@@ -257,13 +252,11 @@ function showreel(){
 const fullName = p => L(p.n).join(' ');
 const roles = p => p.roles.map(r=>t('r_'+r)).join(', ');
 function personModal(p, isFounder){
-  const sk = p.sk.map(([k,v])=>`<div class="bar"><span>${esc(L(D.skills[k])||k)}<b>${v}%</b></span><i style="--w:${v}%"></i></div>`).join('');
   const hon = L(p.h);
   const role = isFounder ? L(p.role) : roles(p);
   openModal('person', `<div class="mimg"><img src="${img(p.photo||p.img)}" alt="${esc(fullName(p))}"></div>
-   <div class="mtxt"><div class="eyebrow">${isFounder ? t('cat_founder') : p.cats.map(c=>t('cat_'+c)).join(' · ')}</div>
+   <div class="mtxt">${isFounder ? `<div class="eyebrow">${t('cat_founder')}</div>` : ''}
    <h2 class="h">${esc(L(p.n)[0])}<br>${esc(L(p.n)[1])}</h2><p class="role">${esc(role)}</p>
-   ${sk ? `<h4>${t('skills')}</h4><div class="bars">${sk}</div>` : ''}
    ${hon ? `<h4>${t('honours')}</h4><p>${esc(hon)}</p>` : ''}</div>`);
 }
 const memCard = (p,i) => `<button class="mem" data-p="${i}"><div class="im"><img src="${img(p.img)}" alt="${esc(fullName(p))}" loading="lazy"></div><div class="nm">${esc(fullName(p))}<small>${esc(roles(p))}</small></div></button>`;
@@ -328,12 +321,7 @@ const PAGES = {
     $('#play').onclick = showreel;
   }
   stats($('#stats')); serviceCards($('#cards')); founderBlock($('#founder'));
-  const tabs = ['coord','horse','rig'];
-  const cur = $('#tabs').dataset.t || 'coord';
-  $('#tabs').innerHTML = tabs.map(k=>`<button data-t="${k}" class="${k===cur?'on':''}">${t('cat_'+k)}</button>`).join('');
-  $('#tabs').onclick = e => { const b=e.target.closest('button'); if(b){ $('#tabs').dataset.t=b.dataset.t; PAGES.home(); } };
-  const list = D.team.filter(p=>p.cats.includes(cur));
-  $('#grid').innerHTML = list.map((p)=>memCard(p,D.team.indexOf(p))).join('');
+  $('#grid').innerHTML = D.team.slice(0,12).map(memCard).join('');
   $('#grid').onclick = e => { const b=e.target.closest('[data-p]'); if(b) personModal(D.team[b.dataset.p]); };
   reel($('#reel')); marquee($('#stars'));
  },
@@ -345,15 +333,13 @@ const PAGES = {
   $('#video .lbl').textContent = t('watch');
  },
  team(){
-  const st = $('#tabs').dataset; const cur = st.t || 'all'; const q = ($('#q').value||'').trim().toLowerCase();
-  const cats = ['coord','horse','rig','perf'];
-  $('#tabs').innerHTML = `<button data-t="all" class="${cur==='all'?'on':''}">${t('all')}<sup>${D.team.length+1}</sup></button><button data-t="founder">${t('cat_founder')}</button>` +
-    cats.map(k=>`<button data-t="${k}" class="${k===cur?'on':''}">${t('cat_'+k)}<sup>${D.team.filter(p=>p.cats.includes(k)).length}</sup></button>`).join('');
-  $('#tabs').onclick = e => { const b=e.target.closest('button'); if(!b) return; if (b.dataset.t==='founder') return personModal(D.founder,true); st.t=b.dataset.t; PAGES.team(); };
+  const q = ($('#q').value||'').trim().toLowerCase();
+  $('#tabs').innerHTML = `<button class="on">${t('all_team')}<sup>${D.team.length+1}</sup></button><button data-founder>${t('cat_founder')}</button>`;
+  $('#tabs').onclick = e => { if (e.target.closest('[data-founder]')) personModal(D.founder,true); };
   $('#q').placeholder = t('search'); $('#q').oninput = PAGES.team;
   const match = p => !q || ['en','ru'].some(l=>p.n[l].join(' ').toLowerCase().includes(q));
-  let list = D.team.filter(p=>(cur==='all'||p.cats.includes(cur)) && match(p));
-  const showF = (cur==='all') && match(D.founder);
+  const list = D.team.filter(match);
+  const showF = match(D.founder);
   const html = (showF ? `<button class="mem" data-founder><div class="im"><img src="${img(D.founder.photo)}" alt="${esc(fullName(D.founder))}"></div><div class="nm">${esc(fullName(D.founder))}<small>${t('cat_founder')}</small></div></button>` : '') +
     list.map(p=>memCard(p,D.team.indexOf(p))).join('');
   $('#grid').innerHTML = html || `<p class="empty">${t('empty')}</p>`;
