@@ -327,7 +327,7 @@ const PAGES = {
  },
  about(){
   timeline($('#tl'));
-  $('#dirs').innerHTML = DIRECTIONS.map(d=>`<div class="rv"><img src="${img(d[0])}" alt="" loading="lazy"><span>${esc({en:d[1],ru:d[2],kk:d[3]}[lang])}</span></div>`).join('');
+  $('#dirs').innerHTML = DIRECTIONS.map(d=>`<div class="rv"><i class="ico" aria-hidden="true" style="-webkit-mask-image:url(${img(d[0])});mask-image:url(${img(d[0])})"></i><span>${esc({en:d[1],ru:d[2],kk:d[3]}[lang])}</span></div>`).join('');
   founderBlock($('#founder')); stats($('#stats')); marquee($('#stars'));
   const v=$('#video'); v.style.backgroundImage='url(assets/video/showreel.webp)'; v.onclick=showreel;
   $('#video .lbl').textContent = t('watch');

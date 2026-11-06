@@ -177,7 +177,7 @@ body.menu .burger::before{top:10px;transform:rotate(45deg)}body.menu .burger i{o
 .lead{font-size:clamp(17px,1.7vw,21px);color:#cfcfcf;max-width:900px}
 .svc-list{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line)}
 .svc-list div{background:var(--bg);padding:30px 22px;display:flex;flex-direction:column;gap:18px;align-items:flex-start}
-.svc-list img{width:46px;height:46px;object-fit:contain;filter:sepia(1) saturate(2.4) hue-rotate(5deg) brightness(.95)}
+.svc-list .ico{width:46px;height:46px;background:var(--red);-webkit-mask:center/contain no-repeat;mask:center/contain no-repeat}
 .svc-list span{font:500 12px/1.5 var(--display);letter-spacing:.1em;text-transform:uppercase}
 .video{position:relative;aspect-ratio:16/9;background:#000 center/cover;cursor:pointer;border:0;width:100%;display:block}
 .video::after{content:"";position:absolute;inset:0;background:rgba(0,0,0,.35);transition:.3s}
@@ -205,6 +205,8 @@ body.menu .burger::before{top:10px;transform:rotate(45deg)}body.menu .burger i{o
 .modal .mtxt{padding:clamp(28px,4vw,48px)}
 .modal h2{font-size:clamp(20px,2.4vw,30px);letter-spacing:.08em;line-height:1.2;margin:10px 0 6px}
 .modal .role{color:var(--red2);font-size:15px;margin-bottom:24px}
+.modal .mtxt>:last-child{margin-bottom:0}
+.modal.person .mtxt{align-self:center}
 .modal h4{font:700 11px var(--display);letter-spacing:.22em;text-transform:uppercase;margin:26px 0 14px;color:var(--muted)}
 .modal p{color:#cfcfcf;font-size:15px}
 .facts{display:grid;gap:14px;margin-top:20px}
@@ -248,9 +250,9 @@ footer{background:var(--bg);padding:clamp(56px,7vw,80px) 0 28px;border-top:1px s
 @media (max-width:960px){
   header{gap:14px}
   .burger{display:block;order:3}
-  nav{position:fixed;inset:var(--hdr) 0 auto;flex-direction:column;gap:0;background:#0e0e0e;border-bottom:1px solid var(--line);max-height:0;overflow:hidden;transition:max-height .35s}
+  nav{position:fixed;inset:var(--hdr) 0 auto;flex-direction:column;gap:0;background:var(--bg);max-height:0;overflow:hidden;transition:max-height .35s}
   nav a{padding:18px var(--gut);border-top:1px solid var(--line);font-size:12px}
-  body.menu nav{max-height:480px}
+  body.menu{overflow:hidden}body.menu nav{max-height:calc(100dvh - var(--hdr));height:calc(100dvh - var(--hdr));overflow-y:auto}
   .hdr-r{margin-left:auto}.hdr-r .soc{display:none}
   .hero-in{grid-template-columns:1fr;grid-template-rows:auto 56vw;height:auto;margin-top:0}
   .hero-l{padding:48px var(--gut)}
@@ -266,15 +268,21 @@ footer{background:var(--bg);padding:clamp(56px,7vw,80px) 0 28px;border-top:1px s
   .cgrid{grid-template-columns:1fr}
   .ft{grid-template-columns:1fr 1fr}.ft-r{grid-column:1/-1;flex-direction:row;justify-content:space-between;align-items:center}
   .services{background-attachment:scroll}
-  .modal .box{grid-template-columns:1fr}.modal .mimg{min-height:0;max-height:52vh}
+  .modal .box{display:block}
+  .modal .mimg{position:relative;min-height:0;aspect-ratio:4/5;max-height:58vh}
+  .modal .mimg img{position:absolute;inset:0}
+  .modal.film .mimg{aspect-ratio:2/3;max-height:62vh}.modal.film .mimg img{object-fit:contain}
+  .modal .mtxt{padding:24px 22px 28px}
 }
 @media (max-width:560px){
   .lang button{padding:7px 7px}
   .cards{grid-template-columns:1fr}.grid,.pgrid{grid-template-columns:1fr 1fr}
   .ft{grid-template-columns:1fr}
+  .ft-r{flex-direction:column;align-items:stretch}.ft-r .btn{text-align:center}
+  .years{flex-wrap:nowrap;justify-content:flex-start;overflow-x:auto;margin-left:calc(-1*var(--gut));margin-right:calc(-1*var(--gut));padding:0 var(--gut);scrollbar-width:none}.years::-webkit-scrollbar{display:none}.years button{flex:none}
   .reel .arr{display:none}
   .h{letter-spacing:.14em}
-    .svc-list{grid-template-columns:1fr}
+  .svc-list{grid-template-columns:1fr}.svc-list div{flex-direction:row;align-items:center;padding:18px 20px}.svc-list .ico{flex:none;width:38px;height:38px}
   .logo img{height:46px}
 }
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.rv{opacity:1;transform:none}}
