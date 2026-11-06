@@ -80,41 +80,41 @@ close:{kk:'Жабу',ru:'Закрыть',en:'Close'}
 };
 
 const SERVICES = [
- {img:'big/70704_512807_01.jpg',
+ {img:'big/70704_512807_01.webp',
   en:['Stunt coordinators','Creative, safety-minded leaders who design large-scale action — from cavalry battles to precise close-quarter fights — and deliver it for international productions.'],
   ru:['Постановщики трюков','Креативные и ответственные лидеры, которые ставят масштабный экшен — от кавалерийских сражений до точных ближних боёв — для международных проектов.'],
   kk:['Трюк қоюшылар','Халықаралық жобалар үшін ауқымды экшнді — атты әскер шайқастарынан нақты жекпе-жек сахналарына дейін — шығармашылықпен әрі қауіпсіздікті ескеріп қоятын көшбасшылар.']},
- {img:'34364_20156_14.jpg',
+ {img:'34364_20156_14.webp',
   en:['Equestrian stunts','Our horse masters and 40 trained stunt horses deliver gallops, falls, horse acrobatics and battle sequences with stunning realism and full care for the animals.'],
   ru:['Конные трюки','Наши хорс-мастеры и 40 обученных трюковых лошадей — галоп, падения, джигитовка и батальные сцены с максимальной достоверностью и заботой о животных.'],
   kk:['Атпен орындалатын трюктер','Хорс-мастерлеріміз бен 40 үйретілген трюк жылқысы — шабыс, аттан құлау, жігіттік және шайқас сахналары барынша шынайы әрі жануарларға қамқорлықпен.']},
- {img:'82219_212255_14.jpg',
+ {img:'82219_212255_14.webp',
   en:['Stunt rigging','Riggers who engineer wire work, ratchets and descenders, making the impossible look effortless while keeping every performer secure.'],
   ru:['Риггинг','Риггеры, которые проектируют тросовые системы, рэтчеты и спуски — невозможное выглядит легко, а каждый каскадёр в безопасности.'],
   kk:['Риггинг','Арқан жүйелерін, рэтчеттер мен түсу құрылғыларын жобалайтын риггерлер — мүмкін емес нәрсе оңай көрінеді, ал әр каскадер қауіпсіз.']},
- {img:'36331_896275_14.jpg',
+ {img:'36331_896275_14.webp',
   en:['Fight choreography','Battle scenes with swords, spears, bows and bare hands — choreography that turns combat into visual storytelling.'],
   ru:['Постановка боёв','Батальные сцены с мечами, копьями, луками и без оружия — хореография, которая превращает бой в историю на экране.'],
   kk:['Шайқас сахналарын қою','Қылыш, найза, садақпен және қарусыз шайқас сахналары — ұрысты экрандағы әңгімеге айналдыратын хореография.']},
- {img:'68101_862130_14.jpg',
+ {img:'68101_862130_14.webp',
   en:['High falls & fireburns','High falls, including the fall of a burning man, full-body fireburns and pyrotechnics — executed under strict safety protocols.'],
   ru:['Падения и огонь','Падения с высоты, включая падение горящего человека, полные огненные трюки и пиротехника — по строгим протоколам безопасности.'],
   kk:['Құлау және от','Биіктен құлау, соның ішінде жанып жатқан адамның құлауы, толық жану трюктері және пиротехника — қатаң қауіпсіздік хаттамаларымен.']},
- {img:'big/97241_93672_00.jpg',
+ {img:'big/97241_93672_00.webp',
   en:['Stunt performers','Acrobatics, martial arts, archery, fencing and scenic movement — performers from Kazakhstan, Kyrgyzstan, Australia, Canada, Turkey and beyond.'],
   ru:['Каскадёры','Акробатика, единоборства, стрельба из лука, фехтование и сценическое движение — каскадёры из Казахстана, Кыргызстана, Австралии, Канады, Турции и других стран.'],
   kk:['Каскадерлер','Акробатика, жекпе-жек, садақ ату, семсерлесу және сахналық қозғалыс — Қазақстан, Қырғызстан, Австралия, Канада, Түркия және басқа елдерден келген каскадерлер.']}
 ];
 
 const DIRECTIONS = [
- ['92148_134821_17.png','Equestrian stunts','Конные трюки','Атпен орындалатын трюктер'],
- ['23839_325489_17.png','Stunt rigging','Риггинг (работа с подвесными системами)','Риггинг (аспалы жүйелермен жұмыс)'],
- ['87155_850522_17.png','Acrobatics','Акробатика','Акробатика'],
- ['93344_329872_17.png','Fireburns','Горение','Жану трюктері'],
- ['28442_362218_17.png','Pyrotechnics, SFX','Пиротехника, SFX','Пиротехника, SFX'],
- ['66369_390104_17.png','Scenic movement','Сценическое движение','Сахналық қозғалыс'],
- ['53033_393953_17.png','Choreography and performance of battle scenes (with various types of weapons)','Постановка и исполнение боевых сцен (с разными видами оружия)','Шайқас сахналарын қою және орындау (әртүрлі қарумен)'],
- ['2239_714086_17.png','High falls (including fall of a burning man)','Падения с высоты (в том числе горящего человека)','Биіктен құлау (соның ішінде жанып жатқан адамның)']
+ ['92148_134821_17.webp','Equestrian stunts','Конные трюки','Атпен орындалатын трюктер'],
+ ['23839_325489_17.webp','Stunt rigging','Риггинг (работа с подвесными системами)','Риггинг (аспалы жүйелермен жұмыс)'],
+ ['87155_850522_17.webp','Acrobatics','Акробатика','Акробатика'],
+ ['93344_329872_17.webp','Fireburns','Горение','Жану трюктері'],
+ ['28442_362218_17.webp','Pyrotechnics, SFX','Пиротехника, SFX','Пиротехника, SFX'],
+ ['66369_390104_17.webp','Scenic movement','Сценическое движение','Сахналық қозғалыс'],
+ ['53033_393953_17.webp','Choreography and performance of battle scenes (with various types of weapons)','Постановка и исполнение боевых сцен (с разными видами оружия)','Шайқас сахналарын қою және орындау (әртүрлі қарумен)'],
+ ['2239_714086_17.webp','High falls (including fall of a burning man)','Падения с высоты (в том числе горящего человека)','Биіктен құлау (соның ішінде жанып жатқан адамның)']
 ];
 
 const HITZ = '<a href="https://www.hitzinternational.com/" target="_blank" rel="noopener">Hitz International</a>';
@@ -302,7 +302,7 @@ const PAGES = {
   const box = $('#slides');
   if (!box.dataset.ready){
     box.dataset.ready = 1;
-    const HERO = ['big/44798_710250_00.jpg','21109_783683_14.jpg','big/97241_93672_00.jpg'];
+    const HERO = ['big/44798_710250_00.webp','21109_783683_14.webp','big/97241_93672_00.webp'];
     HERO.forEach((h,i)=>{ const d=document.createElement('div'); d.className='sl'+(i?'':' on'); d.style.backgroundImage=`url(${img(h)})`; box.prepend(d);
       const b=document.createElement('button'); b.setAttribute('aria-label','Slide '+(i+1)); if(!i) b.className='on'; b.onclick=()=>go(i); $('#dots').append(b); });
     const slides = $$('.sl',box).reverse(); let cur=0;
@@ -329,7 +329,7 @@ const PAGES = {
   timeline($('#tl'));
   $('#dirs').innerHTML = DIRECTIONS.map(d=>`<div class="rv"><img src="${img(d[0])}" alt="" loading="lazy"><span>${esc({en:d[1],ru:d[2],kk:d[3]}[lang])}</span></div>`).join('');
   founderBlock($('#founder')); stats($('#stats')); marquee($('#stars'));
-  const v=$('#video'); v.style.backgroundImage='url(assets/video/showreel.jpg)'; v.onclick=showreel;
+  const v=$('#video'); v.style.backgroundImage='url(assets/video/showreel.webp)'; v.onclick=showreel;
   $('#video .lbl').textContent = t('watch');
  },
  team(){
