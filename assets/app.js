@@ -199,7 +199,7 @@ function chrome(){
   ft.innerHTML = `<div class="wrap ft">
    <div><a href="index.html" class="ft-logo"><img src="assets/logo.svg" alt="Nomad Stunts" width="167" height="76"></a><h4>${t('ft_menu')}</h4><ul><li><a href="index.html">${t('home')}</a></li>${NAV.map(([k,u])=>`<li><a href="${u}">${t('nav_'+k)}</a></li>`).join('')}</ul></div>
    <div><h4>${t('ft_contact')}</h4><p>${t('ft_p')}</p>
-    <div class="ph"><a href="tel:+77017152644">+7 701 715 26 44</a><a href="tel:+77770345034">+7 777 03 450 34</a></div>
+    <div class="ph"><a href="tel:+77017152644">+7 701 715 26 44</a><a href="tel:+77770345034">+7 777 034 50 34</a></div>
     <p style="margin-top:8px">Email: <a href="mailto:nomadstunts@gmail.com">nomadstunts@gmail.com</a></p></div>
    <div class="ft-r"><div class="soc">${soc()}</div><a class="btn" href="mailto:nomadstunts@gmail.com">${t('send')}</a></div>
   </div><p class="copy">© 2000–${new Date().getFullYear()} Nomad Stunts · ${t('tagline')}. ${t('rights')}.</p>`;
