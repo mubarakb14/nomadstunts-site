@@ -119,6 +119,10 @@ body.menu .burger::before{top:10px;transform:rotate(45deg)}body.menu .burger i{o
 /* founder */
 .founder{display:grid;grid-template-columns:1.1fr 1fr;min-height:520px;background:#000}
 .founder .img{background:url(../upload/images/48352_401842_17.webp) center/cover}
+/* studio portrait (About): photo stands on the black section, edges fade into it */
+.founder--portrait{min-height:clamp(560px,50vw,760px)}
+.founder--portrait .img{position:relative;overflow:hidden;background:#000}
+.founder--portrait .img::before{content:"";position:absolute;left:50%;bottom:0;height:100%;aspect-ratio:2/3;transform:translateX(-50%);background:url(../upload/images/founder-portrait.webp) center bottom/cover no-repeat;-webkit-mask-image:linear-gradient(90deg,transparent,#000 16%,#000 84%,transparent),linear-gradient(#000 82%,transparent);-webkit-mask-composite:source-in;mask-image:linear-gradient(90deg,transparent,#000 16%,#000 84%,transparent),linear-gradient(#000 82%,transparent);mask-composite:intersect}
 .founder .txt{padding:clamp(48px,7vw,96px) var(--gut);display:flex;flex-direction:column;justify-content:center;align-items:flex-start;background:var(--hero)}
 .founder h2{font-size:clamp(22px,2.8vw,36px);line-height:1.25;margin:14px 0 22px;letter-spacing:.1em}
 .founder p{color:#e3e3e3;max-width:540px}
@@ -263,6 +267,8 @@ footer{background:var(--bg);padding:clamp(56px,7vw,80px) 0 28px;border-top:1px s
   .cards{grid-template-columns:1fr 1fr}
   .hist{grid-template-columns:1fr}.hist-ph{position:static}.hist-ph img{aspect-ratio:16/10}
   .founder{grid-template-columns:1fr}.founder .img{min-height:60vw}
+  .founder--portrait .img{min-height:0;aspect-ratio:4/5;max-height:80vh}
+  .founder--portrait .img::before{left:0;right:0;width:auto;aspect-ratio:auto;transform:none;background-position:center top;-webkit-mask-image:linear-gradient(#000 70%,transparent);mask-image:linear-gradient(#000 70%,transparent)}
   .stats{grid-template-columns:1fr 1fr}.stat:nth-child(2){border-right:0}.stat:nth-child(-n+2){border-bottom:1px solid var(--line)}
   .grid{grid-template-columns:repeat(3,1fr)}.pgrid{grid-template-columns:repeat(3,1fr)}
   .svc-list{grid-template-columns:1fr 1fr}
