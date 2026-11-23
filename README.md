@@ -9,3 +9,7 @@ Pages: `index.html`, `about.html`, `team.html`, `projects.html`, `gallery.html`,
 - Images are in `upload/`, fonts in `assets/fonts/`, showreel in `assets/video/`.
 
 No build step: open `index.html` or serve the folder with any static host.
+
+## Admin panel
+
+`server/` is a Go server that serves this site plus an admin panel at `/admin`, where the team edits the showreel, team, founder, projects, gallery and contacts without a developer. Content is stored in `DATA_DIR/content.json` and served as `/assets/data.js`. Setup, env vars and deployment: [server/README.md](server/README.md).

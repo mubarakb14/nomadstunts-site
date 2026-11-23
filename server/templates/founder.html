@@ -1,0 +1,12 @@
+{{define "content"}}
+<h1>Основатель</h1>
+<p class="muted">Карточка основателя в разделе «Команда» и окно «Полный профиль». Большое фото в блоке «Основатель» на главной и на «О нас» меняет разработчик.</p>
+<form method="post" enctype="multipart/form-data" class="card">
+  {{template "csrf" .}}
+  {{template "names" .Data.Name}}
+  {{template "l10n" dict "name" "role" "label" "Кто он (под именем в профиле)" "v" .Data.Role "area" true "rows" 4}}
+  {{template "l10n" dict "name" "h" "label" "Награды и достижения" "v" .Data.Hon "area" true "rows" 6}}
+  {{template "photo" dict "name" "photo" "label" "Фото" "src" .Data.Photo "hint" "Вертикальное, 4:5."}}
+  <button class="btn" data-busy="Сохраняю…">Сохранить</button>
+</form>
+{{end}}

@@ -1,0 +1,16 @@
+{{define "content"}}
+<p><a href="/admin/team">← Команда</a></p>
+<h1>{{if eq .Data.ID "new"}}Новый человек в команде{{else}}{{index .Data.Name.Ru 0}} {{index .Data.Name.Ru 1}}{{end}}</h1>
+<form method="post" action="/admin/team/{{.Data.ID}}" enctype="multipart/form-data" class="card">
+  {{template "csrf" .}}
+  {{template "names" .Data.Name}}
+  <fieldset><legend>Роли</legend>
+    <div class="checks">{{$p := .Data}}{{range roles}}
+      <label class="check"><input type="checkbox" name="role_{{.Key}}" value="1"{{if has $p.Roles .Key}} checked{{end}}> {{.Label}}</label>{{end}}
+    </div>
+  </fieldset>
+  {{template "l10n" dict "name" "h" "label" "Награды и достижения (необязательно)" "v" .Data.Hon "area" true "rows" 3}}
+  {{template "photo" dict "name" "photo" "label" "Фото" "src" .Data.Img "required" (eq .Data.ID "new") "hint" "Вертикальное 4:5, на тёмном фоне."}}
+  <button class="btn" data-busy="Сохраняю…">Сохранить</button>
+</form>
+{{end}}

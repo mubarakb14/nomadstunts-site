@@ -1,0 +1,12 @@
+{{define "content"}}
+<h1>Что меняем?</h1>
+<p class="muted">Всё, что вы сохраняете здесь, сразу появляется на сайте. Каждое сохранение можно откатить в разделе «История».</p>
+<div class="tiles">
+  <a class="tile" href="/admin/showreel"><b>Шоурил</b><span>{{if .Data.Showreel.MP4}}Загружено видео{{else if .Data.Showreel.YouTube}}Видео с YouTube{{else}}Не задан{{end}}</span></a>
+  <a class="tile" href="/admin/team"><b>Команда</b><span>{{len .Data.Team}} человек</span></a>
+  <a class="tile" href="/admin/founder"><b>Основатель</b><span>{{index .Data.Founder.Name.Ru 0}} {{index .Data.Founder.Name.Ru 1}}</span></a>
+  <a class="tile" href="/admin/films"><b>Проекты</b><span>{{len .Data.Films}} фильмов и сериалов</span></a>
+  <a class="tile" href="/admin/gallery"><b>Фотогалерея</b><span>{{len .Data.Gallery}} фото</span></a>
+  <a class="tile" href="/admin/contacts"><b>Контакты</b><span>Телефоны, email, база</span></a>
+</div>
+{{end}}

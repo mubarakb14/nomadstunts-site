@@ -1,0 +1,25 @@
+{{define "content"}}
+<div class="head">
+  <h1>Команда <small>{{len .Data}}</small></h1>
+  <a class="btn" href="/admin/team/new">+ Добавить человека</a>
+</div>
+<p class="muted">Порядок здесь = порядок на сайте. Первые 12 показываются на главной. Стрелками можно поменять порядок.</p>
+<ul class="cards">
+{{range $i, $p := .Data}}
+  <li class="item" id="p-{{$p.ID}}">
+    <img src="{{$p.Img}}" alt="" loading="lazy">
+    <div class="meta">
+      <b>{{index $p.Name.Ru 0}} {{index $p.Name.Ru 1}}</b>
+      <span>{{range $j, $r := $p.Roles}}{{if $j}}, {{end}}{{roleLabel $r}}{{end}}</span>
+      {{if lt $i 12}}<em class="badge">на главной</em>{{end}}
+    </div>
+    <div class="actions">
+      <form method="post" action="/admin/team/{{$p.ID}}/move">{{template "csrf" $}}<input type="hidden" name="dir" value="up"><button class="icon" title="Выше" aria-label="Выше"{{if eq $i 0}} disabled{{end}}>↑</button></form>
+      <form method="post" action="/admin/team/{{$p.ID}}/move">{{template "csrf" $}}<input type="hidden" name="dir" value="down"><button class="icon" title="Ниже" aria-label="Ниже">↓</button></form>
+      <a class="btn sm" href="/admin/team/{{$p.ID}}">Изменить</a>
+      <form method="post" action="/admin/team/{{$p.ID}}/delete" data-confirm="Удалить {{index $p.Name.Ru 0}} {{index $p.Name.Ru 1}} с сайта?">{{template "csrf" $}}<button class="btn sm danger">Удалить</button></form>
+    </div>
+  </li>
+{{end}}
+</ul>
+{{end}}

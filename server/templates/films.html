@@ -1,0 +1,24 @@
+{{define "content"}}
+<div class="head">
+  <h1>Проекты <small>{{len .Data}}</small></h1>
+  <a class="btn" href="/admin/films/new">+ Добавить проект</a>
+</div>
+<p class="muted">На сайте проекты идут по году, новые сверху. Проекты с номером «на главной» идут первыми в карусели на главной.</p>
+<input class="filter" type="search" placeholder="Найти по названию…" data-filter=".item">
+<ul class="cards posters">
+{{range .Data}}
+  <li class="item" data-text="{{.Title.Ru}} {{.Title.En}} {{.Year}}">
+    <img src="{{.Poster}}" alt="" loading="lazy">
+    <div class="meta">
+      <b>{{or .Title.Ru .Title.En}}</b>
+      <span>{{.Year}}{{if .Title.En}} · {{.Title.En}}{{end}}</span>
+      {{if .Featured}}<em class="badge">на главной №{{.Featured}}</em>{{end}}
+    </div>
+    <div class="actions">
+      <a class="btn sm" href="/admin/films/{{.ID}}">Изменить</a>
+      <form method="post" action="/admin/films/{{.ID}}/delete" data-confirm="Удалить «{{or .Title.Ru .Title.En}}» с сайта?">{{template "csrf" $}}<button class="btn sm danger">Удалить</button></form>
+    </div>
+  </li>
+{{end}}
+</ul>
+{{end}}

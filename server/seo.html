@@ -1,0 +1,91 @@
+{{define "head"}}<meta name="description" content="{{.Desc}}">
+<link rel="canonical" href="{{.Canonical}}">
+{{range .Alternates}}<link rel="alternate" hreflang="{{.Lang}}" href="{{.Href}}">
+{{end}}<link rel="alternate" hreflang="x-default" href="{{(index .Alternates 0).Href}}">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Nomad Stunts">
+<meta property="og:title" content="{{.Title}}">
+<meta property="og:description" content="{{.Desc}}">
+<meta property="og:url" content="{{.Canonical}}">
+<meta property="og:image" content="{{.Abs "/assets/og-image.jpg"}}">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="{{.OGLocale}}">
+{{range .OGAlt}}<meta property="og:locale:alternate" content="{{.}}">
+{{end}}<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{{.Title}}">
+<meta name="twitter:description" content="{{.Desc}}">
+<meta name="twitter:image" content="{{.Abs "/assets/og-image.jpg"}}">
+<link rel="alternate" type="text/plain" title="llms.txt" href="{{.Abs "/llms.txt"}}">
+<script type="application/ld+json">{{.JSONLD}}</script>
+{{end}}
+
+{{/* Plain-HTML copy of the page for crawlers / no-JS visitors. Hidden by CSS once JS runs. */}}
+{{define "ssr"}}<div class="ssr">
+<header>
+  <p><a href="{{(index .Nav 0).Href}}"><b>Nomad Stunts</b></a> — {{.Plain "tagline"}}</p>
+  <nav>{{range $i, $n := .Nav}}{{if $i}} · {{end}}<a href="{{$n.Href}}"{{if $n.On}} aria-current="page"{{end}}>{{$n.Label}}</a>{{end}}</nav>
+  <p>{{range $i, $l := .Langs}}{{if $i}} · {{end}}<a href="{{$l.Href}}" hreflang="{{$l.Lang}}" lang="{{$l.Lang}}">{{$l.Label}}</a>{{end}}</p>
+</header>
+<main>
+{{if eq .Page "home"}}
+  <h1>{{.Title}}</h1>
+  <p>{{.T "hero_p"}}</p>
+  <h2>{{.T "intro_t"}}</h2>
+  <p>{{.T "intro_p"}}</p>
+  <ul>
+    <li>2000 — {{.T "st1"}}</li><li>86 — {{.T "st2"}}</li><li>40 — {{.T "st3"}}</li><li>{{len .C.Films}}+ — {{.T "st4"}}</li>
+  </ul>
+  <h2>{{.T "srv_t"}}</h2>
+  {{range .Services}}<h3>{{index . 0}}</h3><p>{{index . 1}}</p>{{end}}
+  {{template "founder" .}}
+  <h2>{{.T "team_t"}}</h2>
+  <ul>{{$p := .}}{{range .TopTeam}}<li>{{.Name.In $p.Lang}} — {{$p.Roles .Roles}}</li>{{end}}</ul>
+  <p><a href="{{(index .Nav 2).Href}}">{{.T "team_all"}}</a></p>
+  <h2>{{.T "proj_t"}}</h2>
+  <ul>{{range .Featured}}<li>{{.TitleIn $p.Lang}} ({{.Year}})</li>{{end}}</ul>
+  <p><a href="{{(index .Nav 3).Href}}">{{.T "proj_all"}}</a></p>
+  <p>{{.T "worked"}}: {{.Stars}}.</p>
+{{else if eq .Page "about"}}
+  <h1>{{.T "nav_about"}}</h1>
+  <h2>{{.T "intro_t"}}</h2>
+  <p>{{.T "intro_p"}}</p>
+  <h2>{{.T "hist_t"}}</h2>
+  <ol>{{range .History}}<li><b>{{index . 0}}</b> — {{index . 1 | html2}}</li>{{end}}</ol>
+  <h2>{{.T "dir_t"}}</h2>
+  <ul>{{range .Directions}}<li>{{.}}</li>{{end}}</ul>
+  <h2>{{.T "faq_t"}}</h2>
+  {{range .FAQ}}<h3>{{index . 0}}</h3><p>{{index . 1}}</p>{{end}}
+  {{template "founder" .}}
+{{else if eq .Page "team"}}
+  <h1>{{.T "team_t"}}</h1>
+  {{template "founder" .}}
+  <ul>{{$p := .}}{{range .C.Team}}<li><b>{{.Name.In $p.Lang}}</b> — {{$p.Roles .Roles}}{{with .Hon.In $p.Lang}}. {{.}}{{end}}</li>{{end}}</ul>
+{{else if eq .Page "projects"}}
+  <h1>{{.T "proj_t"}}</h1>
+  <ul>{{$p := .}}{{range .C.Films}}{{$i := .InfoIn $p.Lang}}<li><b>{{.TitleIn $p.Lang}}</b> ({{.Year}}){{with $i.Type}}, {{.}}{{end}}{{with $i.Country}}. {{$p.T "country"}}: {{.}}{{end}}{{with $i.Director}}. {{$p.T "director"}}: {{.}}{{end}}{{with $i.Stars}}. {{$p.T "stars"}}: {{.}}{{end}}</li>{{end}}</ul>
+{{else if eq .Page "gallery"}}
+  <h1>{{.T "gal_t"}}</h1>
+  <p>{{.T "gal_p"}}</p>
+  {{$p := .}}{{range $i, $g := .C.Gallery}}<img src="{{$p.Abs $g.Thumb}}" alt="Nomad Stunts — {{$p.Plain "gal_p"}} ({{inc $i}})" loading="lazy" width="320">{{end}}
+{{else if eq .Page "contacts"}}
+  <h1>{{.T "nav_about"}}</h1>
+  <p>{{.T "c_lead"}}</p>
+{{end}}
+  <h2>{{.T "c_phone"}}</h2>
+  <ul>{{$p := .}}{{range .C.Contacts.Phones}}<li><a href="{{$p.Tel .}}">{{.}}</a></li>{{end}}
+  {{with .C.Contacts.Email}}<li>Email: <a href="mailto:{{.}}">{{.}}</a></li>{{end}}</ul>
+  <h3>{{.T "c_base"}}</h3>
+  <p>{{.C.Contacts.Base.In .Lang}}{{with .C.Contacts.Map}} — <a href="{{.}}">{{$p.T "c_map"}}</a>{{end}}</p>
+  <p>{{range $i, $s := .Social}}{{if $i}} · {{end}}<a href="{{$s.URL}}" rel="noopener">{{$s.Name}}</a>{{end}}</p>
+</main>
+</div>
+{{end}}
+
+{{define "founder"}}<h2>{{.T "f_eye"}}: {{.Founder}}</h2>
+<p>{{.T "f_p"}}</p>
+<p>{{.C.Founder.Role.In .Lang}}</p>
+{{with .C.Founder.Hon.In .Lang}}<p>{{.}}</p>{{end}}
+<ul><li>Taurus World Stunt Awards 2020</li><li>{{.T "aw2"}}</li><li>{{.T "aw3"}}</li><li>Hitz International</li></ul>
+{{end}}
