@@ -174,7 +174,7 @@ func (a *App) founderSave(w http.ResponseWriter, r *http.Request) {
 		fail(err.Error())
 		return
 	}
-	photo, err := upload(r, "photo", func(f io.Reader) (string, error) { return a.media.SaveImage(f, sizePerson) })
+	photo, err := upload(r, "photo", func(f io.Reader) (string, error) { return a.media.SaveCutout(f, sizePerson) })
 	if err != nil {
 		fail(err.Error())
 		return
@@ -233,7 +233,7 @@ func (a *App) personSave(w http.ResponseWriter, r *http.Request) {
 		fail("Отметьте хотя бы одну роль.")
 		return
 	}
-	photo, err := upload(r, "photo", func(f io.Reader) (string, error) { return a.media.SaveImage(f, sizePerson) })
+	photo, err := upload(r, "photo", func(f io.Reader) (string, error) { return a.media.SaveCutout(f, sizePerson) })
 	if err != nil {
 		fail(err.Error())
 		return

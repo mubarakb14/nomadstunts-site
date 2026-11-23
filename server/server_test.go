@@ -18,6 +18,8 @@ import (
 	"regexp"
 	"strings"
 	"testing"
+
+	_ "golang.org/x/image/webp"
 )
 
 const testPass = "test-password-123"
@@ -161,8 +163,8 @@ func TestAdminFlow(t *testing.T) {
 		t.Fatalf("created person = %+v", p)
 	}
 	res, _ = cl.Get(srv.URL + p.Img)
-	if res.StatusCode != 200 || res.Header.Get("Content-Type") != "image/jpeg" {
-		t.Fatalf("uploaded photo: %d %s", res.StatusCode, res.Header.Get("Content-Type"))
+	if ct := res.Header.Get("Content-Type"); res.StatusCode != 200 || (ct != "image/webp" && ct != "image/png") {
+		t.Fatalf("uploaded cut-out photo: %d %s (want transparent WebP/PNG)", res.StatusCode, ct)
 	}
 	res.Body.Close()
 	res, _ = cl.Get(srv.URL + "/assets/data.js")
@@ -354,5 +356,66 @@ func TestCrawlerFiles(t *testing.T) {
 	_, full := get(t, srv.URL+"/llms-full.txt")
 	if !strings.Contains(full, "## Projects") || !strings.Contains(full, "Napoleon (2023)") {
 		t.Error("llms-full.txt: projects missing")
+	}
+}
+
+func TestSaveCutoutKeepsTransparency(t *testing.T) {
+	m, err := NewMedia(t.TempDir())
+	if err != nil {
+		t.Fatal(err)
+	}
+	decode := func(p string) image.Image {
+		f, err := os.Open(filepath.Join(m.dir, strings.TrimPrefix(p, "/media/")))
+		if err != nil {
+			t.Fatal(err)
+		}
+		defer f.Close()
+		img, _, err := image.Decode(f)
+		if err != nil {
+			t.Fatal(err)
+		}
+		return img
+	}
+	// cut-out: transparent corners, opaque centre
+	cut := image.NewNRGBA(image.Rect(0, 0, 80, 100))
+	for y := 20; y < 80; y++ {
+		for x := 20; x < 60; x++ {
+			cut.Set(x, y, color.NRGBA{40, 90, 140, 255})
+		}
+	}
+	var buf bytes.Buffer
+	png.Encode(&buf, cut)
+	p, err := m.SaveCutout(&buf, sizePerson)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if !strings.HasSuffix(p, ".webp") && !strings.HasSuffix(p, ".png") {
+		t.Fatalf("cut-out saved as %s, want .webp or .png", p)
+	}
+	img := decode(p)
+	if _, _, _, a := img.At(2, 2).RGBA(); a != 0 {
+		t.Errorf("corner alpha = %d, want transparent", a)
+	}
+	if _, _, _, a := img.At(40, 50).RGBA(); a < 0xf000 {
+		t.Errorf("centre alpha = %d, want opaque", a)
+	}
+	// opaque photo stays JPEG
+	full := image.NewRGBA(image.Rect(0, 0, 50, 50))
+	for i := range full.Pix {
+		full.Pix[i] = 200
+		if i%4 == 3 {
+			full.Pix[i] = 255 // alpha: fully opaque
+		}
+	}
+	buf.Reset()
+	png.Encode(&buf, full)
+	if p, err := m.SaveCutout(&buf, sizePerson); err != nil || !strings.HasSuffix(p, ".jpg") {
+		t.Errorf("opaque photo saved as %s (%v), want .jpg", p, err)
+	}
+	// gallery/poster path still flattens to JPEG
+	buf.Reset()
+	png.Encode(&buf, cut)
+	if p, err := m.SaveImage(&buf, sizeGallery); err != nil || !strings.HasSuffix(p, ".jpg") {
+		t.Errorf("SaveImage saved %s (%v), want .jpg", p, err)
 	}
 }

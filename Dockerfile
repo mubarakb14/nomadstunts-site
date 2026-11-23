@@ -9,7 +9,8 @@ COPY server/ ./
 RUN CGO_ENABLED=0 go build -trimpath -ldflags="-s -w" -o /nomad .
 
 FROM alpine:3.22
-RUN adduser -D -H app && mkdir -p /data && chown app /data
+# cwebp keeps team cut-out photos transparent and small when uploaded via the admin
+RUN apk add --no-cache libwebp-tools && adduser -D -H app && mkdir -p /data && chown app /data
 COPY --from=build /nomad /app/nomad
 COPY index.html about.html team.html projects.html gallery.html contacts.html favicon.ico /app/site/
 COPY assets /app/site/assets

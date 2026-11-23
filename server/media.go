@@ -2,17 +2,20 @@ package main
 
 import (
 	"bytes"
+	"context"
 	"encoding/binary"
 	"errors"
 	"image"
 	"image/color"
 	_ "image/gif"
 	"image/jpeg"
-	_ "image/png"
+	"image/png"
 	"io"
 	"net/http"
 	"os"
+	"os/exec"
 	"path/filepath"
+	"time"
 
 	"golang.org/x/image/draw"
 	_ "golang.org/x/image/webp"
@@ -37,10 +40,14 @@ const (
 var errBadImage = errors.New("файл не похож на фото: загрузите JPEG, PNG или WebP")
 
 // Media stores uploads in DATA_DIR/media under random names, served at /media/.
-type Media struct{ dir string }
+type Media struct {
+	dir   string
+	cwebp string // path to cwebp if installed (Docker image has it); used for transparent cut-outs
+}
 
 func NewMedia(dir string) (*Media, error) {
-	return &Media{dir: dir}, os.MkdirAll(dir, 0o755)
+	cw, _ := exec.LookPath("cwebp")
+	return &Media{dir: dir, cwebp: cw}, os.MkdirAll(dir, 0o755)
 }
 
 // SaveImage normalises an uploaded photo: fixes phone rotation, flattens transparency
@@ -50,7 +57,52 @@ func (m *Media) SaveImage(r io.Reader, maxSide int) (string, error) {
 	if err != nil {
 		return "", err
 	}
-	return m.writeJPEG(fit(img, maxSide))
+	return m.writeJPEG(fit(flatten(img), maxSide))
+}
+
+// SaveCutout is for team and founder photos: those are cut-outs on a transparent
+// background that sit on the card's dark gradient, so transparency is kept.
+// Opaque photos are stored as JPEG; transparent ones as WebP (via cwebp) or PNG.
+func (m *Media) SaveCutout(r io.Reader, maxSide int) (string, error) {
+	img, err := decodeUpload(r)
+	if err != nil {
+		return "", err
+	}
+	if opaque(img) {
+		return m.writeJPEG(fit(flatten(img), maxSide))
+	}
+	var buf bytes.Buffer
+	if err := png.Encode(&buf, fit(toRGBA(img), maxSide)); err != nil {
+		return "", err
+	}
+	if m.cwebp != "" {
+		if webp, err := m.toWebP(buf.Bytes()); err == nil {
+			return m.write(".webp", bytes.NewReader(webp))
+		}
+	}
+	return m.write(".png", &buf)
+}
+
+// toWebP converts PNG bytes to lossy WebP with full-quality alpha using the cwebp tool.
+func (m *Media) toWebP(pngData []byte) ([]byte, error) {
+	in, err := os.CreateTemp(m.dir, ".cw-*.png")
+	if err != nil {
+		return nil, err
+	}
+	defer os.Remove(in.Name())
+	out := in.Name() + ".webp"
+	defer os.Remove(out)
+	if _, err := in.Write(pngData); err != nil {
+		in.Close()
+		return nil, err
+	}
+	in.Close()
+	ctx, cancel := context.WithTimeout(context.Background(), time.Minute)
+	defer cancel()
+	if err := exec.CommandContext(ctx, m.cwebp, "-quiet", "-q", "85", "-alpha_q", "100", "-m", "5", in.Name(), "-o", out).Run(); err != nil {
+		return nil, err
+	}
+	return os.ReadFile(out)
 }
 
 // SaveImageWithThumb stores a full-size photo plus a small preview for grids.
@@ -59,6 +111,7 @@ func (m *Media) SaveImageWithThumb(r io.Reader, maxSide, thumbSide int) (full, t
 	if err != nil {
 		return "", "", err
 	}
+	img = flatten(img)
 	if full, err = m.writeJPEG(fit(img, maxSide)); err != nil {
 		return "", "", err
 	}
@@ -132,7 +185,23 @@ func decodeUpload(r io.Reader) (image.Image, error) {
 	if format == "jpeg" {
 		img = orient(img, exifOrientation(data))
 	}
-	return flatten(img), nil
+	return img, nil
+}
+
+// opaque reports whether the image has no transparent pixels.
+func opaque(img image.Image) bool {
+	if o, ok := img.(interface{ Opaque() bool }); ok {
+		return o.Opaque()
+	}
+	return true
+}
+
+// toRGBA copies img into an RGBA image, keeping transparency.
+func toRGBA(img image.Image) *image.RGBA {
+	b := img.Bounds()
+	dst := image.NewRGBA(image.Rect(0, 0, b.Dx(), b.Dy()))
+	draw.Draw(dst, dst.Bounds(), img, b.Min, draw.Src)
+	return dst
 }
 
 // fit scales img down so its longest side is at most max; it never upscales.
@@ -166,7 +235,7 @@ func orient(img image.Image, o int) image.Image {
 	if o < 2 || o > 8 {
 		return img
 	}
-	src := flatten(img)
+	src := toRGBA(img)
 	w, h := src.Bounds().Dx(), src.Bounds().Dy()
 	dw, dh := w, h
 	if o >= 5 {
