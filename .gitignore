@@ -2,3 +2,5 @@
 *.zip
 .vercel
 .env*
+data/
+.claude/

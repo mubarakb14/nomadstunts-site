@@ -1,0 +1,15 @@
+{{define "content"}}
+<h1>История изменений</h1>
+<p class="muted">Перед каждым сохранением сохраняется предыдущая версия сайта (последние 60). Если что-то удалили по ошибке, верните версию до этого. Само восстановление тоже можно откатить.</p>
+{{if .Data}}
+<table class="table">
+  <thead><tr><th>Версия от</th><th>Размер</th><th></th></tr></thead>
+  <tbody>
+  {{range .Data}}
+    <tr><td>{{when .Time}}</td><td>{{kb .Size}} КБ</td>
+      <td><form method="post" action="/admin/history/restore" data-confirm="Вернуть сайт к версии от {{when .Time}}?">{{template "csrf" $}}<input type="hidden" name="name" value="{{.Name}}"><button class="btn sm">Вернуть эту версию</button></form></td></tr>
+  {{end}}
+  </tbody>
+</table>
+{{else}}<p class="muted">Пока нет сохранённых версий.</p>{{end}}
+{{end}}

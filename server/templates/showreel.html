@@ -1,0 +1,20 @@
+{{define "content"}}
+<h1>Шоурил</h1>
+<p class="muted">Видео крутится фоном на главной и открывается по кнопке «Смотреть шоурил». Если загружен файл, показывается он. Если файла нет, показывается видео с YouTube.</p>
+<div class="current">
+  {{if .Data.MP4}}<video src="{{.Data.MP4}}" controls preload="metadata"{{if .Data.Poster}} poster="{{.Data.Poster}}"{{end}}></video>
+  {{else if .Data.YouTube}}<iframe src="https://www.youtube-nocookie.com/embed/{{.Data.YouTube}}" title="Шоурил" allowfullscreen></iframe>
+  {{else}}<p class="muted">Шоурил не задан.</p>{{end}}
+</div>
+<form method="post" enctype="multipart/form-data" class="card">
+  {{template "csrf" .}}
+  <label class="file"><span>Новый видеофайл (MP4 или WebM, до 800 МБ)</span>
+    <input type="file" name="video" accept="video/mp4,video/webm"></label>
+  <small>Для быстрой загрузки сайта лучше 1080p и до 50 МБ. Загрузка большого файла может занять несколько минут — не закрывайте страницу.</small>
+  {{if .Data.MP4}}<label class="check"><input type="checkbox" name="remove_video" value="1"> Убрать загруженный файл и показывать YouTube</label>{{end}}
+  <label><span>Ссылка на YouTube (запасной вариант)</span>
+    <input name="youtube" value="{{if .Data.YouTube}}https://youtu.be/{{.Data.YouTube}}{{end}}" placeholder="https://youtu.be/…"></label>
+  {{template "photo" dict "name" "poster" "label" "Обложка видео (на странице «О нас»)" "src" .Data.Poster "hint" "Горизонтальный кадр, лучше 1600 px по ширине."}}
+  <button class="btn" data-busy="Загружаю…">Сохранить</button>
+</form>
+{{end}}

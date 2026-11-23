@@ -1,0 +1,13 @@
+{{define "content"}}
+<h1>Контакты</h1>
+<p class="muted">Показываются на странице контактов и в подвале каждой страницы.</p>
+<form method="post" class="card">
+  {{template "csrf" .}}
+  <label><span>Телефоны — каждый с новой строки</span>
+    <textarea name="phones" rows="3" placeholder="+7 701 715 26 44">{{lines .Data.Phones}}</textarea></label>
+  <label><span>Email</span><input name="email" type="email" value="{{.Data.Email}}"></label>
+  {{template "l10n" dict "name" "base" "label" "Тренировочная база — описание" "v" .Data.Base "area" true "rows" 2}}
+  <label><span>Ссылка на карту (2ГИС, Google Maps)</span><input name="map" value="{{.Data.Map}}" placeholder="https://2gis.kz/…"></label>
+  <button class="btn">Сохранить</button>
+</form>
+{{end}}

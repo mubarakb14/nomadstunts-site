@@ -1,0 +1,68 @@
+{{define "layout"}}<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>{{.Title}} · Nomad Stunts</title>
+<link rel="stylesheet" href="/admin/static/admin.css">
+<script src="/admin/static/admin.js" defer></script>
+</head>
+<body>
+{{if .LoggedIn}}
+<header class="top">
+  <a class="brand" href="/admin/">NOMAD STUNTS <span>админка</span></a>
+  <nav>
+    <a href="/admin/showreel"{{if eq .Active "showreel"}} class="on"{{end}}>Шоурил</a>
+    <a href="/admin/team"{{if eq .Active "team"}} class="on"{{end}}>Команда</a>
+    <a href="/admin/founder"{{if eq .Active "founder"}} class="on"{{end}}>Основатель</a>
+    <a href="/admin/films"{{if eq .Active "films"}} class="on"{{end}}>Проекты</a>
+    <a href="/admin/gallery"{{if eq .Active "gallery"}} class="on"{{end}}>Галерея</a>
+    <a href="/admin/contacts"{{if eq .Active "contacts"}} class="on"{{end}}>Контакты</a>
+    <a href="/admin/history"{{if eq .Active "history"}} class="on"{{end}}>История</a>
+  </nav>
+  <div class="top-r">
+    <a href="/" target="_blank" rel="noopener">Открыть сайт ↗</a>
+    <form method="post" action="/admin/logout">{{template "csrf" .}}<button class="link">Выйти</button></form>
+  </div>
+</header>
+{{end}}
+<main class="wrap">
+  {{if .Flash}}<p class="flash ok" role="status">{{.Flash}}</p>{{end}}
+  {{if .Error}}<p class="flash err" role="alert">{{.Error}}</p>{{end}}
+  {{template "content" .}}
+</main>
+</body>
+</html>{{end}}
+
+{{define "csrf"}}<input type="hidden" name="_csrf" value="{{.CSRF}}">{{end}}
+
+{{/* RU / KZ / EN inputs for one text. dict: name, label, v (L10n), area (bool), rows, hint */}}
+{{define "l10n"}}<fieldset class="l10n"><legend>{{.label}}</legend>
+  {{$n := .name}}{{$rows := or .rows 3}}
+  <label><span>RU</span>{{if .area}}<textarea name="{{$n}}_ru" rows="{{$rows}}">{{.v.Ru}}</textarea>{{else}}<input name="{{$n}}_ru" value="{{.v.Ru}}">{{end}}</label>
+  <label><span>KZ</span>{{if .area}}<textarea name="{{$n}}_kk" rows="{{$rows}}">{{.v.Kk}}</textarea>{{else}}<input name="{{$n}}_kk" value="{{.v.Kk}}">{{end}}</label>
+  <label><span>EN</span>{{if .area}}<textarea name="{{$n}}_en" rows="{{$rows}}">{{.v.En}}</textarea>{{else}}<input name="{{$n}}_en" value="{{.v.En}}">{{end}}</label>
+  {{if .hint}}<small>{{.hint}}</small>{{end}}
+</fieldset>{{end}}
+
+{{/* First / last name per language. dot: Name */}}
+{{define "names"}}<fieldset class="names"><legend>Имя и фамилия</legend>
+  <div class="grid2">
+    <label><span>Имя · RU</span><input name="first_ru" value="{{index .Ru 0}}" required></label>
+    <label><span>Фамилия · RU</span><input name="last_ru" value="{{index .Ru 1}}"></label>
+    <label><span>Имя · KZ</span><input name="first_kk" value="{{index .Kk 0}}"></label>
+    <label><span>Фамилия · KZ</span><input name="last_kk" value="{{index .Kk 1}}"></label>
+    <label><span>Имя · EN</span><input name="first_en" value="{{index .En 0}}"></label>
+    <label><span>Фамилия · EN</span><input name="last_en" value="{{index .En 1}}"></label>
+  </div>
+  <small>Если KZ или EN не заполнены, на сайте покажется русский вариант.</small>
+</fieldset>{{end}}
+
+{{/* Photo upload with preview. dict: name, label, src, required, hint */}}
+{{define "photo"}}<div class="photo-field">
+  <img class="preview" src="{{.src}}" alt=""{{if not .src}} hidden{{end}}>
+  <label class="file"><span>{{.label}}</span>
+    <input type="file" name="{{.name}}" accept="image/jpeg,image/png,image/webp" data-preview{{if .required}} required{{end}}></label>
+  <small>JPEG, PNG или WebP, до 30 МБ. {{.hint}}</small>
+</div>{{end}}

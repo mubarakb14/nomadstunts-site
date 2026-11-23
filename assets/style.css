@@ -195,6 +195,7 @@ body.menu .burger::before{top:10px;transform:rotate(45deg)}body.menu .burger i{o
 .cbox h3{font:700 12px var(--display);letter-spacing:.2em;text-transform:uppercase;color:var(--red);margin-bottom:8px}
 .cbox .big{font:500 clamp(15px,1.5vw,19px) var(--display);letter-spacing:.06em}
 .cbox a.big:hover{color:var(--red)}
+.cphones{display:flex;flex-direction:column;gap:10px}
 .cbox p{color:#bdbdbd;font-size:15px}
 .cbox a.map{color:var(--red2);border-bottom:1px solid rgba(236,35,41,.4)}.cbox a.map:hover{color:#fff;border-color:#fff}
 
@@ -293,3 +294,20 @@ footer{background:var(--bg);padding:clamp(56px,7vw,80px) 0 28px;border-top:1px s
   .logo img{height:46px}
 }
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.rv{opacity:1;transform:none}}
+
+/* FAQ (About) */
+.faq{max-width:860px;margin:0 auto;border-top:1px solid var(--line)}
+.faq details{border-bottom:1px solid var(--line)}
+.faq summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;gap:20px;align-items:center;padding:22px 0;font:500 clamp(14px,1.4vw,17px)/1.45 var(--display);letter-spacing:.04em}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";flex:none;color:var(--red);font-size:24px;line-height:1;transition:transform .25s}
+.faq details[open] summary::after{transform:rotate(45deg)}
+.faq summary:hover{color:var(--red2)}
+.faq details p{color:#cfcfcf;padding:0 0 24px;max-width:760px}
+
+/* server-rendered copy for crawlers and no-JS visitors; the JS page replaces it */
+.js .ssr{display:none}
+.ssr{max-width:900px;margin:0 auto;padding:24px 16px 48px;line-height:1.6}
+.ssr nav a,.ssr a{color:var(--red2)}
+.ssr h1{margin:24px 0 12px}.ssr h2{margin:32px 0 10px}.ssr h3{margin:18px 0 6px}
+.ssr ul{padding-left:20px}

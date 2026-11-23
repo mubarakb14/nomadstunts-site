@@ -1,0 +1,12 @@
+{{define "content"}}
+<section class="login">
+  <h1>NOMAD STUNTS</h1>
+  <p class="muted">Вход в админку сайта</p>
+  <form method="post" action="/admin/login" class="card">
+    <input type="hidden" name="next" value="{{.Data}}">
+    <label><span>Логин</span><input name="user" autocomplete="username" required autofocus></label>
+    <label><span>Пароль</span><input name="password" type="password" autocomplete="current-password" required></label>
+    <button class="btn">Войти</button>
+  </form>
+</section>
+{{end}}

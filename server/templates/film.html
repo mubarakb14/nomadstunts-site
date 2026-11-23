@@ -1,0 +1,23 @@
+{{define "content"}}
+<p><a href="/admin/films">← Проекты</a></p>
+<h1>{{if eq .Data.ID "new"}}Новый проект{{else}}{{or .Data.Title.Ru .Data.Title.En}}{{end}}</h1>
+<form method="post" action="/admin/films/{{.Data.ID}}" enctype="multipart/form-data" class="card">
+  {{template "csrf" .}}
+  {{template "l10n" dict "name" "t" "label" "Название" "v" .Data.Title "hint" "Если KZ пусто, на казахской версии будет английское или русское название."}}
+  <div class="grid2">
+    <label><span>Год выхода</span><input name="year" type="number" min="1950" max="2100" value="{{if .Data.Year}}{{.Data.Year}}{{end}}" required></label>
+    <label><span>Номер в карусели на главной (пусто — не закреплять)</span><input name="featured" type="number" min="0" max="999" value="{{if .Data.Featured}}{{.Data.Featured}}{{end}}"></label>
+  </div>
+  <fieldset><legend>Описание</legend>
+    <div class="info">
+      <span></span><b>RU</b><b>KZ</b><b>EN</b>
+      <span>Тип</span><input name="type_ru" value="{{.Data.Ru.Type}}" placeholder="Сериал"><input name="type_kk" value="{{.Data.Kk.Type}}"><input name="type_en" value="{{.Data.En.Type}}">
+      <span>Страна</span><input name="country_ru" value="{{.Data.Ru.Country}}"><input name="country_kk" value="{{.Data.Kk.Country}}"><input name="country_en" value="{{.Data.En.Country}}">
+      <span>Режиссёр</span><input name="director_ru" value="{{.Data.Ru.Director}}"><input name="director_kk" value="{{.Data.Kk.Director}}"><input name="director_en" value="{{.Data.En.Director}}">
+      <span>В ролях</span><input name="stars_ru" value="{{.Data.Ru.Stars}}"><input name="stars_kk" value="{{.Data.Kk.Stars}}"><input name="stars_en" value="{{.Data.En.Stars}}">
+    </div>
+  </fieldset>
+  {{template "photo" dict "name" "poster" "label" "Постер" "src" .Data.Poster "required" (eq .Data.ID "new") "hint" "Вертикальный, 2:3."}}
+  <button class="btn" data-busy="Сохраняю…">Сохранить</button>
+</form>
+{{end}}

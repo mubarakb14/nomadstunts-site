@@ -3,3 +3,7 @@
 .claude
 .env*
 .vercel
+server
+Dockerfile
+.dockerignore
+data

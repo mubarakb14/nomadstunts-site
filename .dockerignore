@@ -1,0 +1,7 @@
+.git
+.claude
+.vercel
+data
+*.zip
+.DS_Store
+.env*

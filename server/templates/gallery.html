@@ -1,0 +1,22 @@
+{{define "content"}}
+<h1>Фотогалерея <small>{{len .Data}}</small></h1>
+<form method="post" enctype="multipart/form-data" class="card upload">
+  {{template "csrf" .}}
+  <label class="file"><span>Добавить фото — можно выбрать сразу несколько</span>
+    <input type="file" name="photos" accept="image/jpeg,image/png,image/webp" multiple required></label>
+  <small>JPEG, PNG или WebP, до 30 МБ каждое и до 40 штук за раз. Новые фото встают в начало галереи.</small>
+  <button class="btn" data-busy="Загружаю…">Загрузить</button>
+</form>
+<ul class="thumbs">
+{{range $i, $g := .Data}}
+  <li id="g-{{$g.ID}}">
+    <img src="{{or $g.Thumb $g.Img}}" alt="" loading="lazy">
+    <div class="actions">
+      <form method="post" action="/admin/gallery/{{$g.ID}}/move">{{template "csrf" $}}<input type="hidden" name="dir" value="up"><button class="icon" title="Раньше" aria-label="Раньше"{{if eq $i 0}} disabled{{end}}>←</button></form>
+      <form method="post" action="/admin/gallery/{{$g.ID}}/move">{{template "csrf" $}}<input type="hidden" name="dir" value="down"><button class="icon" title="Позже" aria-label="Позже">→</button></form>
+      <form method="post" action="/admin/gallery/{{$g.ID}}/delete" data-confirm="Удалить это фото из галереи?">{{template "csrf" $}}<button class="icon danger" title="Удалить" aria-label="Удалить">✕</button></form>
+    </div>
+  </li>
+{{end}}
+</ul>
+{{end}}
